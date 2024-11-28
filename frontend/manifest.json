@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Swift Forms",
   "description": "Fill google forms swiftly!",
-  "version": "1.0",
+  "version": "0.1",
   "background": {
     "service_worker": "service-worker.js"
   },
@@ -14,5 +14,11 @@
   "permissions": ["tabs", "sidePanel"],
   "side_panel": {
     "default_path": "sidepanel.html"
-  }
+  },
+  "content_scripts": [
+   {
+     "matches": ["https://docs.google.com/forms/*"],
+     "js": ["content-script.js"]
+   }
+ ]
 }
