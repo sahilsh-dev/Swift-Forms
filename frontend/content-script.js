@@ -1,6 +1,13 @@
-let questions = document.querySelectorAll('[role="listitem"] [role="heading"] span:first-child');
-questions = Array.from(questions).map((question) => question.innerText);
-let answerInputs = document.querySelectorAll('[role="listitem"] input');
+let questionsItems = document.querySelectorAll("[role='listitem']");
+let questionInputPairs = {};
 
-console.log(questions);
-console.log(answerInputs);
+for (let item of questionsItems) {
+  let question = item.querySelector("[role='heading'] span:first-child");
+  let answer = item.querySelector("input");
+  if (!answer) {
+    answer = item.querySelector("textarea");
+  }
+  if (question && answer) {
+    questionInputPairs[question.innerText] = answer;
+  }
+}
