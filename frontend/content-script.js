@@ -13,3 +13,9 @@ for (let item of questionsItems) {
 }
 
 console.log(questionInputPairs);
+chrome.runtime.sendMessage(
+  { action: "getAnswers", questionInputPairs: questionInputPairs },
+  function (response) {
+    console.log("Response from service worker: ", response);
+  },
+);
