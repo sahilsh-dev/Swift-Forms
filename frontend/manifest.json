@@ -11,7 +11,7 @@
       "32": "images/icon-32.png"
     }
   },
-  "permissions": ["tabs", "sidePanel", "scripting"],
+  "permissions": ["tabs", "sidePanel", "scripting", "storage"],
   "host_permissions": [
     "https://docs.google.com/forms/*"
   ],
