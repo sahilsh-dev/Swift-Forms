@@ -11,14 +11,11 @@
       "32": "images/icon-32.png"
     }
   },
-  "permissions": ["tabs", "sidePanel"],
+  "permissions": ["tabs", "sidePanel", "scripting"],
+  "host_permissions": [
+    "https://docs.google.com/forms/*"
+  ],
   "side_panel": {
     "default_path": "sidepanel.html"
-  },
-  "content_scripts": [
-   {
-     "matches": ["https://docs.google.com/forms/*"],
-     "js": ["content-script.js"]
-   }
- ]
+  }
 }

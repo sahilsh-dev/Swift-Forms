@@ -11,3 +11,5 @@ for (let item of questionsItems) {
     questionInputPairs[question.innerText] = answer;
   }
 }
+
+console.log(questionInputPairs);
