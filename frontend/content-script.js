@@ -14,7 +14,7 @@ for (let item of questionsItems) {
 
 console.log(questionInputPairs);
 chrome.runtime.sendMessage(
-  { action: "getAnswers", questionInputPairs: questionInputPairs },
+  { action: "getAnswers", questions: Object.keys(questionInputPairs) },
   function (response) {
     console.log("Response from service worker: ", response);
   },

@@ -25,9 +25,12 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "getAnswers") {
+    chrome.storage.local.get("context", function (result) {
+      let userContext = result.context;
+      console.log("User context: ", userContext);
+    });
     let answers = {};
-    for (let question in request.questionInputPairs) {
-      let input = request.questionInputPairs[question];
+    for (let question of request.questions) {
       answers[question] = "Test";
     }
     sendResponse({ answers });

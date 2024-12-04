@@ -1,15 +1,22 @@
 const knowledgeBase = document.querySelector("#knowledge-base");
-let { context } = chrome.storage.local.get("context");
-if (context) {
-  knowledgeBase.value = context;
-}
+chrome.storage.local.get("context", function (result) {
+  let context = result.context;
+  if (context) {
+    knowledgeBase.value = context;
+  }
+});
+
 document
   .querySelector("#context-save-btn")
   .addEventListener("click", async function () {
     context = knowledgeBase.value;
     if (context) {
-      chrome.storage.local.set({ context });
-      console.log("Context saved: ", context);
+      chrome.storage.local.set({ context }, function () {
+        console.log("Context saved: ", context);
+      });
+      chrome.storage.local.get("context", function (result) {
+        console.log("Current Context: ", result.context);
+      });
     } else {
       console.log("No context found");
     }
