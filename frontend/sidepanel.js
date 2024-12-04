@@ -14,9 +14,6 @@ document
       chrome.storage.local.set({ context }, function () {
         console.log("Context saved: ", context);
       });
-      chrome.storage.local.get("context", function (result) {
-        console.log("Current Context: ", result.context);
-      });
     } else {
       console.log("No context found");
     }
@@ -32,10 +29,10 @@ document
 
     console.log("Extracting questions from tab", tab.url);
     if (tab) {
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ["content-script.js"],
+      const response = await chrome.tabs.sendMessage(tab.id, {
+        action: "fillGoogleForm",
       });
+      console.log("Response from content script: ", response);
     } else {
       console.log("No active tab found");
     }
