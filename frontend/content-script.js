@@ -7,6 +7,7 @@ function extractQuestions() {
     if (!answer) {
       answer = item.querySelector("textarea");
     } else if (answer.type != "text") {
+      // TODO: Add support for other input types
       continue;
     }
 
@@ -20,18 +21,23 @@ function extractQuestions() {
 
 async function fillGoogleForm() {
   const questionInputPairs = extractQuestions();
+  const questions = Object.keys(questionInputPairs);
   const res = await chrome.runtime.sendMessage({
     action: "getAnswers",
-    questions: Object.keys(questionInputPairs),
+    questions: questions,
   });
   console.log("Response from service worker: ", res);
   if (!res.error) {
-    //for (let [question, input] of Object.entries(questionInputPairs)) {
-    //  if (res.answers[question]) {
-    //    input.value = res.answers[question];
-    //  }
-    //}
-    console.log(res.answers);
+    const answers = res.answers;
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+      const inputElement = questionInputPairs[question];
+      const placeholderText = inputElement.nextElementSibling;
+      if (placeholderText) {
+        placeholderText.remove();
+      }
+      inputElement.value = answers[i];
+    }
   }
 }
 
