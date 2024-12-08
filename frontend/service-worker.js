@@ -28,11 +28,38 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     chrome.storage.local.get("context", function (result) {
       let userContext = result.context;
       console.log("User context: ", userContext);
+      getAnswers(userContext, request.questions)
+        .then((answers) => {
+          sendResponse({ answers });
+        })
+        .catch((error) => {
+          sendResponse({ error });
+        });
     });
-    let answers = {};
-    for (let question of request.questions) {
-      answers[question] = "Test";
-    }
-    sendResponse({ answers });
   }
+  return True;
 });
+
+async function getAnswers(context, questions) {
+  const url = "http://localhost:8000/predict-answers";
+  let answers = {};
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ context, questions }),
+    });
+    console.log("Get answers res: ", res);
+    if (!res.ok) {
+      throw new Error("Failed to get answers from server!");
+    }
+    const json = await res.json();
+    console.log("Get answers json: ", json);
+    answers = json.answers;
+  } catch (error) {
+    console.error(error);
+  }
+  return answers;
+}

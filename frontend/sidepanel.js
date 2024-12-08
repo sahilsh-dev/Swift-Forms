@@ -1,15 +1,15 @@
-const knowledgeBase = document.querySelector("#knowledge-base");
+const userContext = document.querySelector("#knowledge-base");
 chrome.storage.local.get("context", function (result) {
   let context = result.context;
   if (context) {
-    knowledgeBase.value = context;
+    userContext.value = context;
   }
 });
 
 document
   .querySelector("#context-save-btn")
   .addEventListener("click", async function () {
-    context = knowledgeBase.value;
+    context = userContext.value;
     if (context) {
       chrome.storage.local.set({ context }, function () {
         console.log("Context saved: ", context);
