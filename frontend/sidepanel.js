@@ -29,10 +29,9 @@ document
 
     console.log("Extracting questions from tab", tab.url);
     if (tab) {
-      const response = await chrome.tabs.sendMessage(tab.id, {
+      chrome.tabs.sendMessage(tab.id, {
         action: "fillGoogleForm",
       });
-      console.log("Response from content script: ", response);
     } else {
       console.log("No active tab found");
     }

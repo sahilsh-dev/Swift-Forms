@@ -7,7 +7,6 @@ chrome.runtime.onInstalled.addListener(function () {
 const GOOGLE_FORMS_URL = "https://docs.google.com/forms";
 
 chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
-  console.log(tabId, tab.url);
   if (!tab.url) return;
   if (tab.url.startsWith(GOOGLE_FORMS_URL)) {
     await chrome.sidePanel.setOptions({
@@ -27,7 +26,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "getAnswers") {
     chrome.storage.local.get("context", function (result) {
       let userContext = result.context;
-      console.log("User context: ", userContext);
       getAnswers(userContext, request.questions)
         .then((answers) => {
           sendResponse({ answers });
@@ -36,8 +34,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           sendResponse({ error });
         });
     });
+    return true;
   }
-  return True;
 });
 
 async function getAnswers(context, questions) {
@@ -51,7 +49,6 @@ async function getAnswers(context, questions) {
       },
       body: JSON.stringify({ context, questions }),
     });
-    console.log("Get answers res: ", res);
     if (!res.ok) {
       throw new Error("Failed to get answers from server!");
     }
