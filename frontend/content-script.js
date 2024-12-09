@@ -37,6 +37,8 @@ async function fillGoogleForm() {
         placeholderText.remove();
       }
       inputElement.value = answers[i];
+      const event = new Event("input", { bubbles: true }); // Create a synthetic input event
+      inputElement.dispatchEvent(event); // Dispatch the input event
     }
   }
 }
