@@ -23,12 +23,14 @@ Swift Forms is a project that leverages machine learning to enhance the Google F
 ### Backend Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/sahilsh-dev/Swift-Forms.git
-   cd swift-forms/backend
+   cd Swift-Forms/backend
    ```
 
 2. Set up a virtual environment (optional but recommended):
+
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate  # For Unix/MacOS
@@ -36,6 +38,7 @@ Swift Forms is a project that leverages machine learning to enhance the Google F
    ```
 
 3. Install dependencies:
+
    ```bash
    pip install -r requirements.py
    ```
@@ -53,7 +56,7 @@ Swift Forms is a project that leverages machine learning to enhance the Google F
 3. Enable **Developer mode** (toggle in the top right).
 4. Click **Load unpacked** and select the `frontend` folder.
 5. The Chrome extension should now be loaded and ready to use. 🎉
-6. Click the extension to open a sidepanel and fill the knowlege base based on which questions will be answered. 
+6. Click the extension to open a sidepanel and fill the knowlege base based on which questions will be answered.
 
 ---
 

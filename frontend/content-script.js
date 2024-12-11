@@ -6,16 +6,14 @@ function extractQuestions() {
     let answer = item.querySelector("input");
     if (!answer) {
       answer = item.querySelector("textarea");
-    } else if (answer.type != "text") {
-      // TODO: Add support for other input types
-      continue;
     }
-
     if (question && answer) {
-      questionInputPairs[question.innerText] = answer;
+      if (answer.type === "text" || answer.type === "textarea") {
+        questionInputPairs[question.innerText] = answer;
+      }
     }
   }
-  console.log(questionInputPairs);
+  console.log("Question Input Pairs", questionInputPairs);
   return questionInputPairs;
 }
 
