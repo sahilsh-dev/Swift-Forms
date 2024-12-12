@@ -17,6 +17,17 @@ function extractQuestions() {
   return questionInputPairs;
 }
 
+function fillMCQ() {
+  const mcqItems = document.querySelectorAll("[role='presentation']");
+  for (let item of mcqItems) {
+    const options = item.querySelectorAll("label");
+    console.log("Options", options, options.length);
+    if (options.length === 1) {
+      options[0].click();
+    }
+  }
+}
+
 async function fillGoogleForm() {
   const questionInputPairs = extractQuestions();
   const questions = Object.keys(questionInputPairs);
@@ -35,7 +46,9 @@ async function fillGoogleForm() {
     }
   } else {
     window.alert("Error getting answers from server!");
+    throw new Error(res.error);
   }
+  fillMCQ();
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
