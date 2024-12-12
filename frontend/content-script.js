@@ -21,7 +21,16 @@ function fillMCQ() {
   const mcqItems = document.querySelectorAll("[role='presentation']");
   for (let item of mcqItems) {
     const options = item.querySelectorAll("label");
-    console.log("Options", options, options.length);
+    if (options.length === 1) {
+      options[0].click();
+    }
+  }
+}
+
+function fillCheckboxes() {
+  const checkboxes = document.querySelectorAll("[role='listitem']");
+  for (let item of checkboxes) {
+    const options = item.querySelectorAll("label");
     if (options.length === 1) {
       options[0].click();
     }
@@ -49,6 +58,7 @@ async function fillGoogleForm() {
     throw new Error(res.error);
   }
   fillMCQ();
+  fillCheckboxes();
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
