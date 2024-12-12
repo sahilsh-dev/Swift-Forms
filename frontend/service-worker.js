@@ -40,7 +40,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 async function getAnswers(context, questions) {
   const url = "http://localhost:8000/predict-answers";
-  let answers = {};
   try {
     const res = await fetch(url, {
       method: "POST",
@@ -54,9 +53,9 @@ async function getAnswers(context, questions) {
     }
     const json = await res.json();
     console.log("Get answers json: ", json);
-    answers = json.answers;
+    return json.answers;
   } catch (error) {
-    console.error(error);
+    console.error("Error getting answers: ", error);
+    throw error;
   }
-  return answers;
 }

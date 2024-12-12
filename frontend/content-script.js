@@ -24,20 +24,17 @@ async function fillGoogleForm() {
     action: "getAnswers",
     questions: questions,
   });
-  console.log("Response from service worker: ", res);
   if (!res.error) {
     const answers = res.answers;
     for (let i = 0; i < questions.length; i++) {
       const question = questions[i];
       const inputElement = questionInputPairs[question];
-      const placeholderText = inputElement.nextElementSibling;
-      if (placeholderText) {
-        placeholderText.remove();
-      }
       inputElement.value = answers[i];
       const event = new Event("input", { bubbles: true }); // Create a synthetic input event
       inputElement.dispatchEvent(event); // Dispatch the input event
     }
+  } else {
+    window.alert("Error getting answers from server!");
   }
 }
 
