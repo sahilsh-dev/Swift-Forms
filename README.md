@@ -40,7 +40,7 @@ Swift Forms is a project that leverages machine learning to enhance the Google F
 3. Install dependencies:
 
    ```bash
-   pip install -r requirements.py
+   pip install -r requirements.txt
    ```
 
 4. Run the backend server:
